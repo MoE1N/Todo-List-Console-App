@@ -1,3 +1,3 @@
-# Individual project
+# Individual Todo List App
 
-TODO
+Here is going to be filled with more information.
