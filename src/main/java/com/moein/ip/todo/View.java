@@ -2,6 +2,7 @@ package com.moein.ip.todo;
 
 import com.moein.ip.utils.ConsoleControl;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,16 +58,49 @@ public class View {
 
     }
 
-//    public Task handleNewTask(){
-//
-//        System.out.println("======== ADD A NEW TASK ==========");
-//        System.out.println("----------------------------------");
-//
-//    }
+    public static Task handleNewTask(){
+
+        String title;
+        String project;
+        String deadline;
+
+        System.out.println("======== ADD A NEW TASK ==========");
+        System.out.println("----------------------------------");
+        System.out.println("Enter Your Task Title:");
+        title = readUserInput();
+
+        System.out.println("----------------------------------");
+        System.out.println("Enter Associated Project:");
+        project = readUserInput();
+
+        System.out.println("----------------------------------");
+        System.out.println("Enter The Deadline in YYYY-MM-DD Format:  (Example: 2020-04-01)");
+        deadline = readLocalDateCompatibleUserInput();
+
+        return new Task(title, project, deadline);
+
+    }
 
     public static String readUserInput() {
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
+    }
+
+    private static String readLocalDateCompatibleUserInput() {
+
+        LocalDate input = null;
+
+        do {
+            try{
+                input = LocalDate.parse(readUserInput());
+                return input.toString();
+            } catch (Exception error){
+                System.out.println( ConsoleControl.RED + "INVALID DATE FORMAT! TRY AGAIN...\n" + ConsoleControl.RESET );
+                System.out.println("Enter The Deadline in YYYY-MM-DD Format:  (Example: 2020-04-01)");
+            }
+        } while (input == null);
+
+        return null;
     }
 
 

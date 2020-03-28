@@ -29,15 +29,14 @@ public class Activity {
                     View.handelSortingOptions(tasks);
                     break;
                 case "2":
-//                    tasks.add(View.handleNewTask());
-//                      Render.taskCreatedMsg();
+                    tasks.add(View.handleNewTask());
+                     Render.messageBox("New Task Created Successfully!");
                     break;
                 case "3":
-//                    showBarsByReviewerAndProtein();
                     break;
                 case "4":
                     isQuit = true;
-                    System.out.println("<< Handle Saving Backup ... >>");
+                    Render.messageBox("Good Bye!");
                     break;
                 default:
                     Render.invalidInputMsg();
@@ -45,29 +44,7 @@ public class Activity {
 
         }
     }
-//
-//    private void showBarsWithSort() {
-//        view.showAllSubMenu();
-//        String input = view.getUserInput();
-//
-//        switch (input) {
-//            case "1": // sort by protein
-//                view.showAllBars(manager.sortByProtein());
-//                break;
-//            case "2": // Sort by fett
-//                view.showAllBars(manager.sortByFett());
-//                break;
-//            case "3":
-//                view.showName(manager.getProductNames());
-//                break;
-//            case "4":
-//                view.showAllBars(manager.getListOfProducts());
-//                break;
-//            default:
-//                view.errorMessage();
-//        }
-//    }
-//
-//
+
+
 
 }

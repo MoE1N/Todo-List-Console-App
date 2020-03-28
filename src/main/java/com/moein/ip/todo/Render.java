@@ -49,6 +49,20 @@ public class Render {
 
     }
 
+    public final static void messageBox(String message)
+    {
+        System.out.println();
+        System.out.println(ConsoleControl.BLACK_BACKGROUND);
+        System.out.println(ConsoleControl.WHITE_BACKGROUND_BRIGHT);
+
+        System.out.println(ConsoleControl.GREEN + message);
+
+        System.out.println(ConsoleControl.WHITE_BACKGROUND_BRIGHT);
+        System.out.println(ConsoleControl.BLACK_BACKGROUND);
+
+        System.out.println(ConsoleControl.RESET);
+    }
+
     public static void invalidInputMsg(){
         System.out.println(ConsoleControl.RED + "Invalid Input!  Please try again." + ConsoleControl.RESET);
     }
