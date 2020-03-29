@@ -19,6 +19,6 @@ This is an under-development project! Only use this project for educational purp
 4. `mvn exec:java -Dexec.mainClass="com.moein.ip.todo.Main" `
 
 #### Class Diagram:
-![Class Diagram](classdiagram.png)
+![Class Diagram](./classdiagram.png)
 
 
