@@ -5,12 +5,17 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class Task {
+
+    private static int nextId = 1;
+
+    private final int id;
     private String title;
     private String project;
     private LocalDate deadline;
     private Boolean isDone = false;
 
     public Task(String title, String project, String deadline) {
+        this.id = nextId++;
         this.title = title;
         this.project = project;
         this.deadline = LocalDate.parse(deadline);
@@ -49,11 +54,19 @@ public class Task {
         isDone
     }
 
+    public int getId() {
+        return id;
+    }
+
+    void setNextId(int newNextId) {
+        nextId = newNextId;
+    }
+
     public String getTitle() {
         return title;
     }
 
-    private void setTitle(String title) {
+    void setTitle(String title) {
         this.title = title;
     }
 
@@ -61,7 +74,7 @@ public class Task {
         return project;
     }
 
-    private void setProject(String project) {
+    void setProject(String project) {
         this.project = project;
     }
 
@@ -69,7 +82,7 @@ public class Task {
         return deadline;
     }
 
-    private void setDeadline(LocalDate deadline) {
+    void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
@@ -77,17 +90,22 @@ public class Task {
         return isDone;
     }
 
-    private void setDone() {
+    void setDone() {
         isDone = true;
     }
 
-    private void setUndone() {
+    void setUndone() {
         isDone = false;
+    }
+
+    void toggleStatus(){
+        isDone = !isDone;
     }
 
     @Override
     public String toString() {
-        return "com.todo.Task{" +
+        return "Task{" +
+                "id='" + id + '\'' +
                 "title='" + title + '\'' +
                 ", project='" + project + '\'' +
                 ", deadline=" + deadline +

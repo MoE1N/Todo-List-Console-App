@@ -40,6 +40,16 @@ public class Render {
         singleLineSeparator();
     }
 
+    public static void editOptions(){
+        singleLineSeparator();
+        System.out.println("Enter a task " +
+                ConsoleControl.BLUE_BOLD_BRIGHT +"(ID)" + ConsoleControl.RESET + " and hit Enter↵ to edit.");
+        singleLineSeparator();
+        System.out.println("Enter " +
+                ConsoleControl.BLUE_BOLD_BRIGHT +"(c)" + ConsoleControl.RESET + " to continue in the main menu...");
+        singleLineSeparator();
+    }
+
     public static void renderTasks(ArrayList<Task> tasks){
 
         System.out.println();
@@ -65,6 +75,10 @@ public class Render {
 
     public static void invalidInputMsg(){
         System.out.println(ConsoleControl.RED + "Invalid Input!  Please try again." + ConsoleControl.RESET);
+    }
+
+    public static void taskNotFoundMsg(){
+        System.out.println(ConsoleControl.RED + "Task with provided ID is not existed!  Please try again." + ConsoleControl.RESET);
     }
 
     public static void singleLineSeparator(){

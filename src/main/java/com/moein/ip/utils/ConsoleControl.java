@@ -38,6 +38,9 @@ public class ConsoleControl {
         public static final String CYAN_UNDERLINED = "\033[4;36m";   // CYAN
         public static final String WHITE_UNDERLINED = "\033[4;37m";  // WHITE
 
+        // Strikethrough
+        public static final String STRIKEDTHROUGH = "\033[9m";
+
         // Background
         public static final String BLACK_BACKGROUND = "\033[40m";  // BLACK
         public static final String RED_BACKGROUND = "\033[41m";    // RED
