@@ -1,15 +1,52 @@
 package com.moein.ip.todo;
 
 import com.moein.ip.utils.ConsoleControl;
+import com.moein.ip.utils.FileService;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class View {
 
+    public static ArrayList<Task> dbRestoreHandeler(){
+        FileService fs = new FileService();
+        if (fs.isFileExisted(Config.DB_FILE_PATH)){
+            System.out.println("Do you want to restore the previous backup? Yes(Y) ");
+            try {
+                Character input = readUserInput().charAt(0);
+                if (input.equals('y') || input.equals('Y')){
+                    String jsonString = fs.readDataFile(Config.DB_FILE_PATH);
+                    return Task.jsonToTasks(jsonString);
+                }
+            } catch ( IndexOutOfBoundsException error ){}
+
+        }
+
+        return new ArrayList<Task>();
+    }
+    public static void saveBackupHandler(ArrayList<Task> tasks){
+        FileService fs = new FileService();
+
+            System.out.println("Do you want to save your tasks? Yes(Y) ");
+            Character input = readUserInput().charAt(0);
+            if (input.equals('y') || input.equals('Y')){
+                String jsonString = Task.tasksToJson(tasks);
+                try {
+                    fs.saveToDataFile(jsonString, Config.DB_FILE_PATH);
+                } catch (IOException error){
+                    System.out.println(error.getMessage());
+                }
+            }
+    }
+
     public static void printUndoneTasks(ArrayList<Task> tasks) {
 
+        if (tasks.isEmpty()){
+            Render.messageBox("You have no task to do!");
+            return;
+        }
         // Print the list objects in tabular format.
         System.out.println("=================================" +
                 " TODO LIST " +
@@ -26,10 +63,16 @@ public class View {
             System.out.println();
         }
 
+        handelSortingOptions(tasks);
+
     }
 
     public static void printAllTasks(ArrayList<Task> tasks) {
 
+        if (tasks.isEmpty()){
+            Render.messageBox("You have no task to edit!");
+            return;
+        }
         // Print the list objects in tabular format.
         System.out.println("=================================" +
                 " ALL TASKS " +
@@ -212,13 +255,16 @@ public class View {
             if (isLocalDateCompatible(input)) {
                 return input;
             }
+            if (input.isEmpty())
+                return LocalDate.now().toString();
+
             System.out.println(ConsoleControl.RED + "INVALID DATE FORMAT! TRY AGAIN...\n" + ConsoleControl.RESET);
             System.out.println("Enter The Deadline in YYYY-MM-DD Format:  (Example: 2020-04-01)");
             input = null;
 
         } while (input == null);
 
-        return null;
+        return LocalDate.now().toString();
     }
 
     private static String readLocalDateCompatibleOrEmptyString() {

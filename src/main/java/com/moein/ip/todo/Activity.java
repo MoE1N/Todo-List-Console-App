@@ -9,17 +9,12 @@ public class Activity {
     private ArrayList<Task> tasks = new ArrayList<>();
 
     public Activity() {
-        tasks.add(new Task("Title3", "ProjectY", "2020-04-04"));
-        tasks.add(new Task("Title2", "ProjectX", "2020-04-03"));
-        tasks.add(new Task("Title1", "ProjectX", "2020-04-02"));
-        tasks.add(new Task("Title5", "ProjectY", "2020-04-05"));
-        tasks.add(new Task("Title4", "ProjectX", "2020-04-04"));
-        tasks.get(2).setDone();
-        tasks.get(4).setDone();
+        tasks = View.dbRestoreHandeler();
     }
 
     public void run() {
         Render.header();
+
         while (!isQuit) {
             Render.mainMenu();
             String input = View.readUserInput();
@@ -27,9 +22,10 @@ public class Activity {
             switch (input) {
                 case "1":
                     // Render only undone tasks
-                    tasks.stream().filter( task -> !task.isDone() ).collect(Collectors.toList());
-                    View.printUndoneTasks(tasks);
-                    View.handelSortingOptions(tasks);
+                    ArrayList<Task> undoneTasks = (ArrayList<Task>) tasks.stream()
+                            .filter(task -> !task.isDone() )
+                            .collect(Collectors.toList());
+                    View.printUndoneTasks(undoneTasks);
                     break;
                 case "2":
                     tasks.add(View.handleNewTask());
@@ -40,6 +36,7 @@ public class Activity {
                     break;
                 case "4":
                     isQuit = true;
+                    View.saveBackupHandler(tasks);
                     Render.messageBox("Good Bye!");
                     break;
                 default:

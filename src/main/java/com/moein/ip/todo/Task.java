@@ -1,5 +1,8 @@
 package com.moein.ip.todo;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -21,6 +24,16 @@ public class Task {
         this.deadline = LocalDate.parse(deadline);
     }
 
+    public Task(int id, String title, String project, String deadline, Boolean isDone) {
+        this.id = id;
+        this.title = title;
+        this.project = project;
+        this.deadline = LocalDate.parse(deadline);
+        this.isDone = isDone;
+
+        if( nextId <= id )
+            nextId = ++id;
+    }
 
     public static ArrayList<Task> getSortedTasks(ArrayList<Task> tasks, TaskSortableBy sortBy){
         switch (sortBy){
@@ -113,6 +126,36 @@ public class Task {
                 '}';
     }
 
+    public static ArrayList<Task> jsonToTasks(String jsonString) {
 
+        JSONArray jsonArray = new JSONArray(jsonString);
+
+        ArrayList<Task> tasks = new ArrayList<>();
+
+        for(Object object: jsonArray)
+        {
+            JSONObject jsonObject = (JSONObject) object;
+            Task task = new Task(
+                    jsonObject.getInt("id"),
+                    jsonObject.getString("title"),
+                    jsonObject.getString("project"),
+                    jsonObject.getString("deadline"),
+                    jsonObject.getBoolean("done")
+            );
+
+            tasks.add(task);
+        };
+
+        return tasks;
+
+    }
+
+    public static String tasksToJson(ArrayList<Task> tasks) {
+
+        JSONArray jsonArray = new JSONArray(tasks);
+
+        return jsonArray.toString();
+
+    }
 }
 
